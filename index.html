@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <!-- ETIQUETA VITAL PARA RESPONSIVIDAD: Asegura que se vea bien en celulares -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solaris | Energía para tu Aventura</title>
+    
+    <!-- Librería de Íconos (FontAwesome) para usar íconos de baterías, sol, etc. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Fuentes de Google (Montserrat para títulos, Open Sans para texto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. VARIABLES Y RESETEO (LA BASE) --- */
+        :root {
+            --color-primario: #FFC107; /* Amarillo Solar */
+            --color-secundario: #1a1a1a; /* Negro suave */
+            --color-texto: #333;
+            --color-fondo: #f9f9f9;
+            --blanco: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* Manejo fácil de bordes y rellenos */
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--color-texto);
+            line-height: 1.6;
+            background-color: var(--color-fondo);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--color-secundario);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- 2. ENCABEZADO Y NAVEGACIÓN --- */
+        header {
+            background-color: var(--color-secundario);
+            color: var(--blanco);
+            padding: 1rem 5%;
+            position: sticky; /* Se queda fijo al hacer scroll */
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--color-primario);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- NUEVO: ESTILO PARA LA IMAGEN DEL LOGO --- */
+        .logo-img {
+            height: 50px; /* Controla el tamaño (alto) del logo */
+            width: auto;  /* Mantiene la proporción correcta */
+            vertical-align: middle; /* Alinea la imagen verticalmente */
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primario);
+        }
+
+        .btn-menu {
+            display: none; /* Oculto en PC */
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- 3. SECCIÓN HERO (PORTADA) --- */
+        .hero {
+            height: 90vh; /* 90% del alto de la pantalla */
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--blanco);
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--blanco);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .btn-cta {
+            background-color: var(--color-primario);
+            color: var(--color-secundario);
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 5px;
+            transition: transform 0.3s, background 0.3s;
+            display: inline-block;
+        }
+
+        .btn-cta:hover {
+            transform: scale(1.05);
+            background-color: #ffca2c;
+        }
+
+        /* --- 4. CONFIGURACIÓN GENERAL SECCIONES --- */
+        .seccion {
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .titulo-seccion {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .titulo-seccion::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 4px;
+            background: var(--color-primario);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- 5. NUEVA SECCIÓN: SOBRE NOSOTROS (FLEXBOX) --- */
+        .nosotros-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem; /* Espacio entre imagen y texto */
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left; /* El texto se ve mejor alineado a la izquierda aquí */
+        }
+
+        .nosotros-img {
+            flex: 1; /* Ocupa la mitad */
+        }
+
+        .nosotros-img img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 20px 20px 0px var(--color-primario); /* Efecto decorativo cool */
+        }
+
+        .nosotros-texto {
+            flex: 1; /* Ocupa la otra mitad */
+        }
+
+        .nosotros-texto p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        /* --- 6. CARACTERÍSTICAS (GRID LAYOUT) --- */
+        .grid-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--blanco);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: var(--color-primario);
+            margin-bottom: 1rem;
+        }
+
+        /* --- 7. MODELOS (PRODUCTOS) --- */
+        .bg-dark {
+            background-color: var(--color-secundario);
+            color: var(--blanco);
+        }
+
+        .bg-dark h2 {
+            color: var(--blanco);
+        }
+
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .producto-card {
+            background: var(--blanco);
+            color: var(--color-texto);
+            border-radius: 10px;
+            overflow: hidden; /* IMPORTANTE: Esto evita que la imagen se salga al hacer zoom */
+            cursor: pointer; /* Cambia el cursor a manita */
+            transition: box-shadow 0.3s ease;
+        }
+
+        /* Efecto de sombra al pasar sobre toda la tarjeta */
+        .producto-card:hover {
+            box-shadow: 0 10px 20px rgba(255, 193, 7, 0.2); /* Sombra amarilla sutil */
+        }
+
+        .producto-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            /* Agregamos una transición suave para la animación */
+            transition: transform 0.5s ease;
+        }
+
+        /* EFECTO HOVER: ZOOM EN LA IMAGEN */
+        .producto-card:hover .producto-img {
+            transform: scale(1.1); /* Aumenta el tamaño un 10% */
+        }
+
+        .producto-info {
+            padding: 1.5rem;
+            text-align: left;
+            position: relative;
+            z-index: 2;
+            background: var(--blanco);
+        }
+
+        .producto-tag {
+            background: var(--color-primario);
+            color: var(--color-secundario);
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        /* --- 8. FOOTER --- */
+        footer {
+            background-color: #111;
+            color: #ccc;
+            text-align: center;
+            padding: 2rem;
+            margin-top: auto;
+        }
+
+        .social-media {
+            margin: 20px 0;
+        }
+
+        .social-media a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            margin: 0 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--blanco);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-media a:hover {
+            background: var(--color-primario);
+            color: var(--color-secundario);
+            transform: translateY(-3px);
+        }
+
+        /* --- 9. RESPONSIVE (CELULARES) --- */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            /* Ajuste para la sección Nosotros en celular */
+            .nosotros-container {
+                flex-direction: column; /* Pone el texto debajo de la imagen */
+                text-align: center;
+            }
+
+            .nosotros-texto {
+                text-align: center; /* Centra el texto en celular */
+            }
+
+            .nosotros-img img {
+                box-shadow: 10px 10px 0px var(--color-primario); /* Sombra más pequeña */
+                margin-bottom: 2rem;
+            }
+
+            .btn-menu {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--color-secundario);
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links a {
+                padding: 1rem 0;
+                display: block;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVEGACIÓN -->
+    <header>
+        <nav>
+            <div class="logo"><img src="imgs/logo-solaris.png" alt="Logo solaris" class="logo-img"></div>
+            <div class="btn-menu" id="btnMenu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#nosotros">Nosotros</a></li> <!-- NUEVO LINK -->
+                <li><a href="#beneficios">Tecnología</a></li>
+                <li><a href="#modelos">Modelos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Lleva tu energía a cualquier lugar</h1>
+            <p>Mochilas inteligentes con paneles solares de alta eficiencia. Diseñadas para estudiantes, nómadas y aventureros.</p>
+            <a href="#modelos" class="btn-cta">Ver Modelos Recientes</a>
+        </div>
+    </section>
+
+    <!-- NUEVA SECCIÓN: SOBRE NOSOTROS -->
+    <section id="nosotros" class="seccion">
+        <div class="nosotros-container">
+            <div class="nosotros-img">
+                <!-- Imagen que representa aventura/equipo -->
+                <img src="imgs/alumnos-unam.jpg" alt="alumnos unam">
+            </div>
+            <div class="nosotros-texto">
+                <h2 class="titulo-seccion">Nuestra Misión</h2>
+                <p>En <strong>Solaris</strong>, creemos que la falta de batería no debería ser un límite para explorar el mundo o cumplir tus metas académicas.</p>
+                <p>Nacimos en 2024 como un proyecto de emprendimiento con un objetivo claro: fusionar la movilidad con la energía renovable. Nuestras mochilas están diseñadas para otorgar libertad a estudiantes y viajeros, permitiéndoles estar conectados sin depender de un enchufe de pared.</p>
+                <p>Somos apasionados por la innovación sustentable y el diseño funcional.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFICIOS -->
+    <section id="beneficios" class="seccion" style="background-color: #f1f1f1;">
+        <h2 class="titulo-seccion">Tecnología Solaris</h2>
+        <div class="grid-features">
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Carga Rápida</h3>
+                <p>Paneles flexibles que convierten la luz solar en batería para tu smartphone o tablet en tiempo récord.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Indestructible</h3>
+                <p>Materiales impermeables y resistentes a rasgaduras. Protege tus dispositivos de la lluvia y golpes.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-leaf"></i>
+                <h3>Eco-Friendly</h3>
+                <p>Reduce tu huella de carbono utilizando energía limpia y renovable mientras caminas a clase o viajas.</p>
+            </div>
+        </div>
+    </section>
+
+   <!-- MODELOS -->
+    <section id="modelos" class="seccion bg-dark">
+        <h2 class="titulo-seccion">Nuestros Modelos</h2>
+        <div class="grid-productos">
+            
+            <!-- Modelo 1: Estudiante -->
+            <div class="producto-card">
+                <a href="https://articulo.mercadolibre.com.mx/MLM-4636904352-mochila-multifuncional-impermeable-con-energia-solarbateria-_JM#origin%3Dshare%26sid%3Dshare">
+                <img src="imgs/solaris-sun-backpack.jpg" alt="Mochila Estudiante" class="producto-img">
+                <div class="producto-info">
+                    <span class="producto-tag">Viajeros</span>
+                    <h3>Solaris Sun</h3>
+                    <p>Compacta y ligera. Espacio para puerto USB externo. Ideal para acompañarte en viajes.</p>
+                </div>
+                </a>
+            </div>
+
+            <!-- Modelo 2: Viajero -->
+            <div class="producto-card">
+                <a href="">
+                <img src="imgs/solaris-trekker-backpack.jpg" alt="Mochila Viajero" class="producto-img" >
+                <div class="producto-info">
+                    <span class="producto-tag">Esudiantes</span>
+                    <span class="producto-tag">Viajeros</span>
+                    <h3>Solaris Trekker</h3>
+                    <p>Panel solar frontal de mayor potencia. Impermeable y ergonómica, perfecta para tu día a día</p>
+                </div>
+                </a>
+            </div>
+
+            <!-- Modelo 3: Profesional -->
+            <div class="producto-card">
+                <a href="">
+                <img src="https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Mochila Profesional" class="producto-img">
+                <div class="producto-info">
+                    <span class="producto-tag">Profesionales</span>
+                    <h3>Solaris Pro</h3>
+                    <p>Diseño minimalista y elegante en cuero vegano. Batería integrada de 10,000mAh para no detener tus negocios.</p>
+                </div>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CONTACTO / FOOTER -->
+    <footer id="contacto">
+        <h3>SOLARIS ☀️</h3>
+        <p>Innovación en cada paso.</p>
+        
+        <!-- SECCIÓN DE REDES SOCIALES -->
+        <div class="social-media">
+            <a href="https://www.facebook.com/profile.php?id=61586109635453" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/solaris_backpack?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+
+        </div>
+
+        <p>Email: solaris.backpack@gmail.com</p>
+        <br>
+        <p>&copy; 2026 Solaris - México</p>
+    </footer>
+
+    <script>
+        // --- JAVASCRIPT BÁSICO PARA EL MENÚ MÓVIL ---
+        const btnMenu = document.getElementById('btnMenu');
+        const navLinks = document.getElementById('navLinks');
+
+        btnMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
